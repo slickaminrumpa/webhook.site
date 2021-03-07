@@ -23,6 +23,8 @@ WORKDIR /var/www/html
 # Contains laravel echo server proxy configuration
 COPY /nginx.conf /etc/nginx/conf.d
 
+RUN apk update && apk add curl
+
 USER www-data
 
 ADD --chown=www-data:www-data /composer.json /var/www/html
@@ -48,7 +50,5 @@ RUN composer dump-autoload --optimize --no-dev \
 ADD --chown=www-data:www-data /resources /var/www/html/resources
 COPY --chown=www-data:www-data --from=npm /app/public/css /var/www/html/public/css
 COPY --chown=www-data:www-data --from=npm /app/public/js /var/www/html/public/js
-
-RUN apk update && apk add curl
 
 USER root
