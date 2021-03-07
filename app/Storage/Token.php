@@ -24,7 +24,7 @@ class Token extends Entity
     public static function createFromRequest(CreateTokenRequest $request)
     {
         return new self([
-            'uuid' => Uuid::uuid4()->toString(),
+            'uuid' => $request->get('uuid', Uuid::uuid4()->toString()),
             'ip' => $request->ip(),
             'user_agent' => $request->header('User-Agent'),
             'default_content' => $request->get('default_content', ''),
